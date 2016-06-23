@@ -159,8 +159,8 @@ fieldset[disabled] .btn-xl.active {
   border-color: rgba(255, 255, 255, 0.02);
 }
 .navbar-default .navbar-toggle {
-  background-color: darkblue;
-  border-color: darkblue;
+  background-color: #fed136;
+  border-color: #fed136;
 }
 .navbar-default .navbar-toggle .icon-bar {
   background-color: white;
@@ -192,12 +192,17 @@ fieldset[disabled] .btn-xl.active {
   background-color: #fec503;
 }
 
+
+
 .navbar {
   background-color: transparent;
   background: transparent;
   border-color: transparent;
 }
 
+.navbar-inner {
+  background:transparent;
+}
 .navbar li { color: #000 }
 
 @media (min-width: 768px) {
@@ -236,7 +241,7 @@ header {
   background-size: cover;
   -o-background-size: cover;
   text-align: center;
-  color: white;
+  color: #f0f0f0;
 }
 header .intro-text {
   padding-top: 100px;

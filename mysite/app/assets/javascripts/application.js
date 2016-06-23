@@ -18,5 +18,6 @@
 //= require_tree .
 //= require jquery
 //= require jquery_ujs
+//= require site_theme
 //= require bootstrap
 
