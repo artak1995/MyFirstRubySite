@@ -1,0 +1,105 @@
+FORMAT: 1A
+
+# API Introduction
+
+## Code Redemption[/redeem/{code}]
+
++ **Usage**
+    + Helps user to redeem code for membership points.
+
++ **Parameters**
+    + code:  `/[a-zA-Z0-9_\-]{22,}={1,2}/`
+    + There are unique code and reusable code for redemption. Unique code can only be used once. The reusable code allows users to submit again after the rescan interval.
+
+* **Method:**
+    + `POST`
+
+*  **Response Params**
+
+    + Success Response:
+
+            success: true,
+            gifts:   gift history record
+            member:  associate with gift history record
+            
+    + If there is a new redemption, 
+    system will create new gift history record, modify the number of the gifts and associate the gift record to the corresponding member
+
+## Redeem all the available gift[redeem_all/{campaign_member_token}]
+
++ **Usage**
+    + Helps user to redeem all the available gift, the points will be deducted correspondingly.
+
+
++ **Parameters**
+    + campaign_member_token:  `/[a-zA-Z0-9_\-]{22,}={1,2}/`
+    + These campaign member token is unique and it stored the corresponding info for each member 
+
+* **Method:**
+    + `POST`
+
+*  **Response Params**
+
+    + Success Response:
+
+            success: true,
+            gifts:   gift history record,
+            member:  associate with gift history record
+            
+    + If there the redeem_all method runs successfully, system will create new gift history record, modify the number of the gifts and associate the gift record to the corresponding member
+
+## Export codes[/export_codes]
+
++ **Usage**
+    + It will export sky codes of the sky code batch that the user currently selected
+
++ **Requested Parameters**
+    + There will be a form for user to input the size of the skycodes that they want to export
+
+* **Method:**
+    + `GET`
+
+*  **Response**
+
+    + It will generate sky codes according to the size that the user input into a csv file.
+    
+## Restore the user information in input form[/member/{id}/{remember_me_token}]
+
++ **Usage**
+    + It helps user to input the stored values in the input form thus they do no need to re-enter the user information
+
++ **Parameters**
+    + id :  the id is stored in the params of the url
+
+* **Method:**
+    + `GET`
+
+*  **Response Params**
+
+    + Success Response:
+
+            success: true,
+            member:  the values of the user information fields
+            
+    + The web will pop up a confirm box to ask user whether is a specific member, if yes then it will fill in the form with the member's information
+    
+## Parse the user profile into the pass[pass/{campaign_member_token}]
+
++ **Usage**
+    + Get the ‘campaign member token’ from params and parse the corresponding data into the pass and return a link for user to download the pass
+
+
++ **Parameters**
+    + campaign_member_token is stored in the url
+    + it is a token that stored that user information within a specific campaign
+
+
+* **Method:**
+    + `GET`
+
+*  **Response Params**
+
+    + Success Response:
+
+        It will parse the member's information into a pkpass file and generate the pass, 
+        there will be a button for user to download the pass.
