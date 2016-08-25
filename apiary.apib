@@ -16,7 +16,7 @@ FORMAT: 1A
 
 *  **Response Params**
 
-    + Success Response 200: 
+    + Success Response (application/json) 
     
             {    
                 success: true,
@@ -58,7 +58,7 @@ FORMAT: 1A
 
 *  **Response Params**
 
-    + Success Response:
+    + Success Response (application/json)
 
             {
                 success: true,
@@ -97,7 +97,8 @@ FORMAT: 1A
     + `GET`
 
 *  **Response**
-    +   Success Response 
+
+    +   Success Response (application/json) 
         
             {
                 success: true,
@@ -122,7 +123,7 @@ FORMAT: 1A
 
 *  **Response Params**
 
-    + Success Response:
+    + Success Response (application/json)
 
             {
                 success: true,
@@ -150,11 +151,50 @@ FORMAT: 1A
 
 *  **Response Params**
 
-    + Success Response(.pkpass):
+    + Success Response (application/json)
 
         
             {
                 type: 'application/vnd.apple.pkpass', 
                 disposition: 'attachment', 
                 filename: "pass.pkpass"
+            }    
+
+## Gift index[/gifts/{campaign_member_token}]
+
++ **Usage**
+    
+    + Showing available gift for user to select and corresponding membership points
+
+
++ **Parameters**
+    
+    + campaign_member_token: "zMnGD8jHnfkIFj=="
+
+
+* **Method:**
+    + `GET`
+
+*  **Response Params**
+
+    + Success Response (application/json)
+
+            {
+                success: true,
+                gifts: [
+                    id: 7,
+                    campaign_id: 6,
+                    name: "One more Gift",
+                    quantity: 4,
+                    created_at: Thu, 25 Aug 2016 18:06:33 HKT +08:00,
+                    updated_at: Thu, 25 Aug 2016 18:06:33 HKT +08:00,
+                    deleted_at: nil,
+                    image: "icon.png"
+                ],
+                campaign_member: {
+                    points_stats: {
+                        vip: 100,
+                        Point#2: 10
+                    }
+                }
             }
