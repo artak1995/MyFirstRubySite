@@ -9,19 +9,37 @@ FORMAT: 1A
 
 + **Parameters**
     + code:  `/[a-zA-Z0-9_\-]{22,}={1,2}/`
-    + There are unique code and reusable code for redemption. Unique code can only be used once. The reusable code allows users to submit again after the rescan interval.
+    + It is unique code for user to redeem their gift
 
 * **Method:**
     + `POST`
 
 *  **Response Params**
 
-    + Success Response:
-
-            success: true,
-            gifts:   gift history record
-            member:  associate with gift history record
-            
+    + Success Response 200: 
+    
+            {    
+                success: true,
+                gifts:  [
+                    {
+                        id: 1,
+                        redeemed_at: Thu, 25 Aug 2016 15:14:23 HKT +08:00,
+                        created_at: Thu, 25 Aug 2016 15:14:23 HKT +08:00,
+                        updated_at: Thu, 25 Aug 2016 15:14:23 HKT +08:00,
+                        condition_log_id: nil,
+                        deleted_at: nil,
+                        entry_id: 1,
+                        gift_map_id: 1,
+                        redemption_token: "2uYNAeKffLQ82_5drfEdYg==",
+                        point_redemption_id: nil,
+                        campaign_member_id: 1   
+                    }
+                ]
+                member: {
+                        email: "abc@email.com",
+                        gender: "male"
+                }
+            }            
     + If there is a new redemption, 
     system will create new gift history record, modify the number of the gifts and associate the gift record to the corresponding member
 
@@ -42,11 +60,30 @@ FORMAT: 1A
 
     + Success Response:
 
-            success: true,
-            gifts:   gift history record,
-            member:  associate with gift history record
+            {
+                success: true,
+                gifts:  [
+                    {
+                    id: 1,
+                    redeemed_at: Thu, 25 Aug 2016 15:14:23 HKT +08:00,
+                    created_at: Thu, 25 Aug 2016 15:14:23 HKT +08:00,
+                    updated_at: Thu, 25 Aug 2016 15:14:23 HKT +08:00,
+                    condition_log_id: nil,
+                    deleted_at: nil,
+                    entry_id: 1,
+                    gift_map_id: 1,
+                    redemption_token: "2uYNAeKffLQ82_5drfEdYg==",
+                    point_redemption_id: nil,
+                    campaign_member_id: 1   
+                }
+                ]
+                member: {
+                    email: "loop@example.com",
+                    gender: "female"
+                }
+            }      
             
-    + If there the redeem_all method runs successfully, system will create new gift history record, modify the number of the gifts and associate the gift record to the corresponding member
+    + If the redeem_all method runs successfully, system will create new gift history record, modify the number of the gifts and associate the gift record to the corresponding member
 
 ## Export codes[/export_codes]
 
@@ -60,7 +97,16 @@ FORMAT: 1A
     + `GET`
 
 *  **Response**
-
+    +   Success Response 
+        
+            {
+                success: true,
+                codes: [
+                    "dZpLgbnNGJrnmA7SPNIo5Q==", 
+                    "vH-wbDEnBpAYDEE0voI2ZA==", 
+                    "NZA78LVbtPiHveMCqw4nKg=="
+                ]
+            }
     + It will generate sky codes according to the size that the user input into a csv file.
     
 ## Restore the user information in input form[/member/{id}/{remember_me_token}]
@@ -78,9 +124,14 @@ FORMAT: 1A
 
     + Success Response:
 
-            success: true,
-            member:  the values of the user information fields
-            
+            {
+                success: true,
+                member: {
+                    email: "loop@example.com",
+                    phone: "2300 0000",
+                    country: "Hong Kong"
+                }    
+            }
     + The web will pop up a confirm box to ask user whether is a specific member, if yes then it will fill in the form with the member's information
     
 ## Parse the user profile into the pass[pass/{campaign_member_token}]
@@ -99,7 +150,11 @@ FORMAT: 1A
 
 *  **Response Params**
 
-    + Success Response:
+    + Success Response(.pkpass):
 
-        It will parse the member's information into a pkpass file and generate the pass, 
-        there will be a button for user to download the pass.
+        
+            {
+                type: 'application/vnd.apple.pkpass', 
+                disposition: 'attachment', 
+                filename: "pass.pkpass"
+            }
