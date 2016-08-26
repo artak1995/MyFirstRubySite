@@ -5,11 +5,11 @@ FORMAT: 1A
 ## Code Redemption[/redeem/{code}]
 
 + **Usage**
-    + Helps user to redeem code for membership points.
+    + Helps user to redeem 
 
 + **Parameters**
     + code:  `/[a-zA-Z0-9_\-]{22,}={1,2}/`
-    + It is unique code for user to redeem their gift
+    + It is unique code for user to redeem the gift
 
 * **Method:**
     + `POST`
@@ -42,6 +42,49 @@ FORMAT: 1A
             }            
     + If there is a new redemption, 
     system will create new gift history record, modify the number of the gifts and associate the gift record to the corresponding member
+
+## Redeem gifts[/redeem_gifts/{campaign_member_token}]
+
++ **Usage**
+    + Redeem the selected gifts by deducting membership points
+
++ **Parameters**
+    + campaign_member_token:  `/[a-zA-Z0-9_\-]{22,}={1,2}/`
+    
+    + it store the member information associated with a specific campaign
+
+* **Method:**
+    + `POST`
+
+*  **Response Params**
+
+    + Success Response (application/json) 
+    
+            {    
+                success: true,
+                gifts:  [
+                    {
+                        id: 1,
+                        redeemed_at: Thu, 25 Aug 2016 15:14:23 HKT +08:00,
+                        created_at: Thu, 25 Aug 2016 15:14:23 HKT +08:00,
+                        updated_at: Thu, 25 Aug 2016 15:14:23 HKT +08:00,
+                        condition_log_id: nil,
+                        deleted_at: nil,
+                        entry_id: 1,
+                        gift_map_id: 1,
+                        redemption_token: "2uYNAeKffLQ82_5drfEdYg==",
+                        point_redemption_id: nil,
+                        campaign_member_id: 1   
+                    }
+                ]
+                member: {
+                        email: "skymatters@example.com",
+                        gender: "male"
+                }
+            }            
+    + If there is a redemption, 
+    system will create new gift history record, modify the number of the gifts and associate the gift record to the corresponding member
+
 
 ## Redeem all the available gift[redeem_all/{campaign_member_token}]
 
@@ -135,6 +178,32 @@ FORMAT: 1A
             }
     + The web will pop up a confirm box to ask user whether is a specific member, if yes then it will fill in the form with the member's information
     
+## Show the profile of the member[/profile/{campaign_member_token}]
+
++ **Usage**
+    + Show the user information as a profile and provide a link for member to download his/her pass.
+
++ **Parameters**
+    + campaign_member_token :  
+
+* **Method:**
+    + `GET`
+
+*  **Response Params**
+
+    + Success Response (application/json)
+
+            {
+                success: true,
+                campaign_member: {
+                    email: "loop@example.com",
+                    phone: "2300 0000",
+                    points_stats: {},
+                    gifts_stats: {},
+                    pass_download_url: "http://www.example.com/api/v1/pass/LmOTqIYdg=="
+                }    
+            }    
+    
 ## Parse the user profile into the pass[pass/{campaign_member_token}]
 
 + **Usage**
@@ -160,11 +229,57 @@ FORMAT: 1A
                 filename: "pass.pkpass"
             }    
 
-## Gift index[/gifts/{campaign_member_token}]
+## Create entries when there is new successful submission[entries]
+
++ **Usage**
+    + 
+
+
++ **Parameters**
+    + campaign_member_token is stored in the url
+    + it is a token that stored that user information within a specific campaign
+
+
+* **Method:**
+    + `POST`
+
+*  **Response Params**
+
+    + Success Response (application/json)
+
+        
+            {
+            success: true,
+             campaign_member:{campaign_member_token: "lob9V5ZXqeNre4lUnGEDtA==},
+             gifts: 
+              [{name: "Gift",
+                amount: 1,
+                image_url: "/uploads/gift/image/1/icon.png",
+                gift_id: 1,
+                redemption_token: "o2mhuflvkiNkXhoTbPbntw==",
+                redeemed_at: nil}]
+        }
+            
+*  **Response Params**
+
+    + Success Response (application/json)
+
+            {
+                success: true,
+                campaign_member: {
+                    email: "loop@example.com",
+                    phone: "2300 0000",
+                    points_stats: {},
+                    gifts_stats: {},
+                    pass_download_url: "http://www.example.com/api/v1/pass/LmOTqIYdg=="
+                }    
+            } 
+
+## Gift index[/entries/{campaign_member_token}]
 
 + **Usage**
     
-    + Showing available gift for user to select and corresponding membership points
+    + 
 
 
 + **Parameters**
@@ -196,5 +311,30 @@ FORMAT: 1A
                         vip: 100,
                         Point#2: 10
                     }
+                }
+            }    
+
+## Gift select[/entries/{campaign_member_token}]
+
++ **Usage**
+    
+    + 
+
+
++ **Parameters**
+    
+    + campaign_member_token: "zMnGD8jHnfkIFj=="
+
+
+* **Method:**
+    + `POST`
+
+*  **Response Params**
+
+    + Success Response (application/json)
+            
+            {
+                points_stats: {
+                    vip: 20
                 }
             }
